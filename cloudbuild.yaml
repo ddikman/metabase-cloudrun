@@ -1,0 +1,11 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/greycastle-apps/metabase', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/greycastle-apps/metabase']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', 'metabase', '--image', 'gcr.io/greycastle-apps/metabase', '--region', 'REGION']
+
+images:
+- gcr.io/greycastle-apps/metabase
